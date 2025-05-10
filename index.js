@@ -1,7 +1,7 @@
 import express from 'express';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import generateHandler from './api/generate.js';
+import generateHandler from './api/generate.cjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
