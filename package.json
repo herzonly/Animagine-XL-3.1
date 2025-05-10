@@ -4,16 +4,10 @@
   "description": "AI Image Generator using Animagine XL 3.1",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "keywords": [
-    "ai",
-    "image-generation",
-    "text-to-image",
-    "gradio",
-    "express"
-  ],
+  "keywords": ["ai", "image-generation", "text-to-image", "gradio", "express"],
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -22,5 +16,5 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
-  },
+  }
 }
