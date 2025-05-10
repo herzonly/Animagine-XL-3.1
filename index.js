@@ -1,26 +1,29 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+import generateHandler from './api/generate.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
-
-const generateHandler = require('./api/generate');
+app.use(express.static(join(__dirname, 'public')));
 
 app.post('/api/generate', (req, res) => {
   generateHandler(req, res);
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(join(__dirname, 'public', 'index.html'));
 });
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   app.listen(PORT, () => {
-    console.log(`Local development server running on port ${PORT}`);
+    console.log(`Server running on port ${PORT}`);
   });
 }
 
-module.exports = app;
+export default app;
