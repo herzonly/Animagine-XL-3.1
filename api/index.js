@@ -1,8 +1,8 @@
 import express from "express";
-import { client } from "@gradio/client"
-import * as eventsource from "eventsource";
+import { client } from "@gradio/client";
+import EventSource from "eventsource";
 
-global.EventSource = eventsource;
+global.EventSource = EventSource;
 
 const app = express();
 
@@ -37,8 +37,9 @@ app.get("/generate", async (req, res) => {
     ]);
     res.json(result.data);
   } catch (e) {
+    console.error("Generation error:", e);
     res.status(500).json({ error: "Failed to generate", details: e.toString() });
   }
 });
 
-export default (req, res) => app(req, res);
+export default app;
