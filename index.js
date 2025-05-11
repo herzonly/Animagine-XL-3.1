@@ -1,29 +1,38 @@
-import express from 'express';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
-import generateHandler from './api/generate.cjs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import express from "express";
+import { client } from "@gradio/client";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
 
-app.use(express.json());
-app.use(express.static(join(__dirname, 'public')));
+app.get("/generate", async (req, res) => {
+  const { prompt, negative_prompt } = req.query;
+  if (!prompt || !negative_prompt) {
+    return res.status(400).json({ error: "Missing prompt or negative_prompt" });
+  }
 
-app.post('/api/generate', (req, res) => {
-  generateHandler(req, res);
+  try {
+    const gradioApp = await client("Asahina2K/animagine-xl-3.1");
+    const result = await gradioApp.predict("/run", [
+      prompt,
+      negative_prompt,
+      0,
+      512,
+      512,
+      1,
+      1,
+      "DPM++ 2M Karras",
+      "1024 x 1024",
+      "(None)",
+      "(None)",
+      true,
+      0,
+      1,
+      true
+    ]);
+    res.json(result.data);
+  } catch (e) {
+    res.status(500).json({ error: "Failed to generate", details: e.toString() });
+  }
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(join(__dirname, 'public', 'index.html'));
-});
-
-if (import.meta.url === `file://${process.argv[1]}`) {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
-
-export default app;
+app.listen(port, () => console.log(`Server running on port ${port}`));
