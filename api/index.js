@@ -2,7 +2,6 @@ import express from "express";
 import { client } from "@gradio/client";
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.send("Gradio API is running");
@@ -39,8 +38,4 @@ app.get("/generate", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-
-export defaults app
+export default (req, res) => app(req, res);
