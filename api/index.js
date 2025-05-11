@@ -1,5 +1,8 @@
 import express from "express";
-import { client } from "@gradio/client";
+import { client } from "@gradio/client"
+import eventsource from "eventsource";
+
+global.EventSource = eventsource;
 
 const app = express();
 
