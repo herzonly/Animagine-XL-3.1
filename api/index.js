@@ -1,6 +1,6 @@
 import express from "express";
 import { client } from "@gradio/client"
-import eventsource from "eventsource";
+import * as eventsource from "eventsource";
 
 global.EventSource = eventsource;
 
