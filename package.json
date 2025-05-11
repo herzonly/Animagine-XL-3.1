@@ -1,22 +1,10 @@
 {
-  "name": "animagine-api",
-  "version": "1.0.0",
-  "description": "Image generation API with Animagine XL",
-  "main": "index.js",
   "type": "module",
-  "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
+  "name": "gradio-express-api",
+  "version": "1.0.0",
+  "main": "index.js",
   "dependencies": {
-    "@gradio/client": "*",
-    "express": "^4.18.3",
-    "eventsource": "^2.0.2"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.0"
-  },
-  "engines": {
-    "node": ">=16.0.0"
+    "@gradio/client": "^0.7.1",
+    "express": "^4.18.2"
   }
 }
