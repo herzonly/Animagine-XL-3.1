@@ -4,6 +4,10 @@ import { client } from "@gradio/client";
 const app = express();
 const port = 3000;
 
+app.get('/', async (req, res) => {
+  res.send('hi')
+})
+
 app.get("/generate", async (req, res) => {
   const { prompt, negative_prompt } = req.query;
   if (!prompt || !negative_prompt) {
